@@ -1,0 +1,189 @@
+version: 2
+
+models:
+  - name: stg_adverse_events
+    description: "Staging table for adverse events"
+    tags: ["staging"]
+    columns:
+      - name: safetyreportid
+        tests:
+          - not_null
+      - name: drug_id
+        tests:
+          - not_null
+      - name: patient_id
+        tests:
+          - not_null
+      - name: receivedate
+        tests:
+          - not_null
+
+  - name: dim_drug
+    description: "Dimension table for drugs"
+    tags: ["dims"]
+    columns:
+      - name: drug_id
+        description: "Unique identifier for the drug"
+        tests:
+          - unique
+          - not_null
+      - name: drug_name
+        description: "Name of the drug"
+      - name: medicinal_product
+        description: "Medicinal product name"
+
+  - name: dim_patient
+    description: "Dimension table for patients"
+    tags: ["dims"]
+    columns:
+      - name: patient_id
+        description: "Unique identifier for the patient - simulated for learning purposes"
+        tests:
+          - unique
+          - not_null
+      - name: patient_onset_age
+        description: "Age of the patient at the onset of the event"
+      - name: patient_onset_age_unit
+        description: "Unit of the patient's age (e.g., years, months)"
+      - name: patient_sex
+        description: "Sex of the patient"
+      - name: patient_weight
+        description: "Weight of the patient in kilograms"
+      - name: patientweight_lbs
+        description: "Weight of the patient in pounds"
+      - name: calculated_age_in_years
+        description: "Calculated age of the patient in years"
+      - name: age_group
+        description: "Age group of the patient"
+
+  - name: fct_adverse_events
+    description: "Fact table for adverse events"
+    tags: ["facts"]
+    columns:
+      - name: safety_report_id
+        description: "Unique identifier for the safety report"
+        tests:
+          - not_null
+      - name: drug_id
+        description: "Foreign key to the drug dimension table"
+        tests:
+          - not_null
+      - name: patient_id
+        description: "Foreign key to the patient dimension table"
+        tests:
+          - not_null
+      - name: receive_date
+        description: "Date the report was received"
+        tests:
+          - not_null
+      - name: reaction_outcome
+        description: "Outcome of the reaction"
+      - name: mapped_outcome
+        description: "Mapped outcome of the reaction"
+      - name: receive_date
+        description: "Date the report was received"
+      - name: transmission_date
+        description: "Date the report was transmitted"
+      - name: is_serious
+        description: "Indicator if the event is serious"
+      - name: seriousness_death
+        description: "Indicator if the event resulted in death"
+      - name: seriousness_hospitalization
+        description: "Indicator if the event resulted in hospitalization"
+      - name: seriousness_life_threatening
+        description: "Indicator if the event was life-threatening"
+      - name: seriousness_disabling
+        description: "Indicator if the event was disabling"
+      - name: seriousness_congenital_anomaly
+        description: "Indicator if the event resulted in a congenital anomaly"
+      - name: seriousness_other
+        description: "Indicator if the event had other serious outcomes"
+      - name: receive_date_day
+        description: "Day of the receive date"
+      - name: receive_date_year
+        description: "Year of the receive date"
+      - name: receive_date_month
+        description: "Month of the receive date"
+      - name: receive_date_week
+        description: "Week of the receive date"
+      - name: date_pulled
+        description: "Date the data was pulled"
+    tests:
+      - unique_combination:
+          combination: ['safety_report_id', 'drug_id']
+
+  - name: dim_date
+    description: "Dimension table for dates"
+    tags: ["dims"]
+    columns:
+      - name: date_day
+        description: "Day of the date"
+        tests:
+          - unique
+          - not_null
+
+  - name: age_group_analysis
+    description: "Analysis of adverse events by age group"
+    tags: ["analysis"]
+    columns:
+      - name: drug_name
+        description: "Name of the drug"
+      - name: age_group
+        description: "Age group of the patients"
+      - name: event_count
+        description: "Count of adverse events"
+
+  - name: reaction_analysis
+    description: "Analysis of adverse events by reaction"
+    tags: ["analysis"]
+    columns:
+      - name: drug_name
+        description: "Name of the drug"
+      - name: reaction_meddra_pt
+        description: "MedDRA preferred term for the reaction"
+      - name: date_year
+        description: "Year of the event"
+      - name: date_month
+        description: "Month of the event"
+      - name: reaction_count
+        description: "Count of reactions"
+      - name: percentage
+        description: "Percentage of reactions for the drug"
+
+  - name: time_based_analysis
+    description: "Time-based analysis of adverse events"
+    tags: ["analysis"]
+    columns:
+      - name: drug_name
+        description: "Name of the drug"
+      - name: date_year
+        description: "Year of the event"
+      - name: date_month
+        description: "Month of the event"
+      - name: monthly_event_count
+        description: "Count of adverse events per month"
+
+  - name: seriousness_analysis
+    description: "Analysis of the seriousness of adverse events"
+    tags: ["analysis"]
+    columns:
+      - name: drug_name
+        description: "Name of the drug"
+      - name: serious_count
+        description: "Count of serious events"
+      - name: death_count
+        description: "Count of events resulting in death"
+      - name: hospitalization_count
+        description: "Count of events resulting in hospitalization"
+      - name: life_threatening_count
+        description: "Count of life-threatening events"
+      - name: disabling_count
+        description: "Count of disabling events"
+      - name: congenital_anomaly_count
+        description: "Count of events resulting in congenital anomalies"
+      - name: other_serious_count
+        description: "Count of other serious events"
+      - name: total_events
+        description: "Total count of events"
+      - name: serious_percentage
+        description: "Percentage of serious events"

@@ -1,4 +1,40 @@
-
+# .gitignore
 target/
 dbt_packages/
+
+# Airflow logs
 logs/
+
+# Astronomer files
+.astro/
+
+# Virtual environment
+venv/
+env/
+dbt-env/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environment variables
+.env
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Airflow settings
+.airflowignore
+airflow_settings.yaml
+
+# OpenFDA fields file
+fields.yaml
+
+# Ignore package-lock.yml
+package-lock.yml

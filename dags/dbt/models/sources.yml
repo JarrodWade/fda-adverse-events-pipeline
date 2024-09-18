@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: raw
+    database: DBT_DB
+    schema: DBT_SCHEMA
+    tables:
+      - name: ADVERSE_EVENTS_RAW
