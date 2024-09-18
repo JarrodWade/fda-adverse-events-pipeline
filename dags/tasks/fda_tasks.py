@@ -52,18 +52,20 @@ def pull_adverse_events(**context):
     
     statins = ["atorvastatin", "rosuvastatin", "simvastatin", "pravastatin", "lovastatin"]
     
-    # Calculate the date range for two months ago
-    # end_date = execution_date.subtract(months=12)  # Start from 2 months ago
-    # start_date = end_date.subtract(days=6)  # Go back 7 days from there
+    # Calculate the date range for two months ago. 
+    # Processing a week of data at a time. 
+    end_date = execution_date.subtract(months=2)  # Start from 2 months ago, 
+    # allowing for some time for the API source to have the data
+    start_date = end_date.subtract(days=6)  # Go back 7 days from there
 
  # Uncomment these lines if you want to use fixed dates for testing 
     # or historical data    
-    start_date_str = '20230101'
-    end_date_str = '20230731'
+    # start_date_str = '20230101'
+    # end_date_str = '20230731'
     
     # Format dates for FDA API
-    # start_date_str = start_date.format('YYYYMMDD')
-    # end_date_str = end_date.format('YYYYMMDD')
+    start_date_str = start_date.format('YYYYMMDD')
+    end_date_str = end_date.format('YYYYMMDD')
     
     logging.info(f"Current date: {pendulum.now().format('YYYYMMDD')}")
     logging.info(f"Fetching data from {start_date_str} to {end_date_str}")
