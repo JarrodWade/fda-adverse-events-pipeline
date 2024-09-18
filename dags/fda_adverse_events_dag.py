@@ -21,9 +21,9 @@ profile_config = ProfileConfig(
         conn_id="snowflake_dbt",
         profile_args={"database": "DBT_DB",
                       "role": "DBT_ROLE",
-                      "account": "your_account",
-                      "password": "your_password",
-                      "user": "your_user"},
+                      "account": "",
+                      "password": "",
+                      "user": ""},
     ),
 )
 
