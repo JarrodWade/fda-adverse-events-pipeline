@@ -38,3 +38,5 @@ fields.yaml
 
 # Ignore package-lock.yml
 package-lock.yml
+
+expressions.txt
