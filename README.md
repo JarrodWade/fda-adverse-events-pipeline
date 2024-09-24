@@ -20,6 +20,19 @@ Data Source:
 - Snowflake (warehousing)
 - dbt (data transformation)
 
+## Pipeline Steps / Overview
+
+1. Fetch adverse event data for specified statin drugs from the FDA API.
+2. Save processed data as CSV files and upload to Amazon S3 bucket for raw data storage.
+3. Load CSV files from S3 bucket into Snowflake.
+4. Create dbt project and models to transform Snowflake data.
+5. Utilize dbt singular and generic tests to validate models. 
+
+
+<img width="996" alt="Screenshot 2024-09-23 at 11 30 25 PM" src="https://github.com/user-attachments/assets/37abf33c-ca61-45e5-b268-75a83314b9a3">
+
+## Project Tree
+
 ```
 FDA_ADVERSE_EVENTS_PIPELINE/
 │
@@ -59,12 +72,6 @@ FDA_ADVERSE_EVENTS_PIPELINE/
 └── requirements.txt
 ```
 
-## Pipeline Steps / Overview
-
-1. Fetch adverse event data for specified statin drugs from the FDA API.
-2. Save processed data as CSV files and upload to Amazon S3 bucket for raw data storage.
-3. Load CSV files from S3 bucket into Snowflake.
-4. Create dbt project and models to transform Snowflake data.
 
 ## Slightly More Detailed Overview (with pictures!!!)
 
