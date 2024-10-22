@@ -11,5 +11,5 @@ SELECT
     SUM(CASE WHEN ae.seriousness_other = '1' THEN 1 ELSE 0 END) AS other_serious_count,
     COUNT(DISTINCT ae.safety_report_id) AS total_events,
     SUM(CASE WHEN ae.is_serious = '1' THEN 1 ELSE 0 END) * 100.0 / COUNT(*) AS serious_percentage
-FROM {{ ref('fct_adverse_events') }} ae
+FROM {{ ref('adverse_event_obt') }} ae
 GROUP BY ae.drug_name
