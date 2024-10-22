@@ -18,105 +18,77 @@ models:
         tests:
           - not_null
 
-  - name: dim_drug
-    description: "Dimension table for drugs"
-    tags: ["dims"]
+  - name: adverse_event_obt
+    description: " 'One Big Table' for adverse events - serves as a base table for all analysis"
+    tags: ["obt"]
     columns:
-      - name: drug_id
-        description: "Unique identifier for the drug"
+      - name: safety_report_id
+        description: "identifier for the safety report"
         tests:
-          - unique
           - not_null
       - name: drug_name
         description: "Name of the drug"
-      - name: medicinal_product
+      - name: drug_product
         description: "Medicinal product name"
-
-  - name: dim_patient
-    description: "Dimension table for patients"
-    tags: ["dims"]
-    columns:
-      - name: patient_id
-        description: "Unique identifier for the patient - simulated for learning purposes"
-        tests:
-          - unique
-          - not_null
-      - name: patient_onset_age
-        description: "Age of the patient at the onset of the event"
-      - name: patient_onset_age_unit
-        description: "Unit of the patient's age (e.g., years, months)"
-      - name: patient_sex
-        description: "Sex of the patient"
-      - name: patient_weight
-        description: "Weight of the patient in kilograms"
-      - name: patientweight_lbs
-        description: "Weight of the patient in pounds"
-      - name: calculated_age_in_years
-        description: "Calculated age of the patient in years"
+      - name: drug_characterization
+        description: "Characterization of the drug"
+      - name: drug_indication
+        description: "Indication of the drug"
+      - name: patient_age
+        description: "Age of the patient"
+      - name: patient_age_unit
+        description: "Unit of the patient's age"
       - name: age_group
         description: "Age group of the patient"
-
-  - name: fct_adverse_events
-    description: "Fact table for adverse events"
-    tags: ["facts"]
-    columns:
-      - name: safety_report_id
-        description: "Unique identifier for the safety report"
-        tests:
-          - not_null
-      - name: drug_id
-        description: "Foreign key to the drug dimension table"
-        tests:
-          - not_null
-      - name: patient_id
-        description: "Foreign key to the patient dimension table"
-        tests:
-          - not_null
-      - name: receive_date
-        description: "Date the report was received"
-        tests:
-          - not_null
-      - name: reaction_outcome
+      - name: patient_weight_kg
+        description: "Weight of the patient in kg"
+      - name: patient_weight_lbs
+        description: "Weight of the patient in lbs"
+      - name: patient_sex
+        description: "Sex of the patient"
+      - name: reporter_country
+        description: "Country of the reporter"
+      - name: reaction_meddra_pt
+        description: "MedDRA preferred term for the reaction"
+      - name: reaction_outcome_cd
         description: "Outcome of the reaction"
       - name: mapped_outcome
         description: "Mapped outcome of the reaction"
-      - name: receive_date
+      - name: receipt_date
         description: "Date the report was received"
-      - name: transmission_date
-        description: "Date the report was transmitted"
-      - name: is_serious
-        description: "Indicator if the event is serious"
-      - name: seriousness_death
-        description: "Indicator if the event resulted in death"
-      - name: seriousness_hospitalization
-        description: "Indicator if the event resulted in hospitalization"
-      - name: seriousness_life_threatening
-        description: "Indicator if the event was life-threatening"
-      - name: seriousness_disabling
-        description: "Indicator if the event was disabling"
-      - name: seriousness_congenital_anomaly
-        description: "Indicator if the event resulted in a congenital anomaly"
-      - name: seriousness_other
-        description: "Indicator if the event had other serious outcomes"
-      - name: receive_date_day
-        description: "Day of the receive date"
+      - name: receive_date
+        description: "Date the report was received" 
       - name: receive_date_year
         description: "Year of the receive date"
       - name: receive_date_month
         description: "Month of the receive date"
-      - name: receive_date_week
-        description: "Week of the receive date"
+      - name: receive_date_quarter
+        description: "Quarter of the receive date"
+      - name: is_serious
+        description: "Indicates if the event is serious"
+      - name: seriousness_death
+        description: "Indicates if the event resulted in death"
+      - name: seriousness_hospitalization
+        description: "Indicates if the event resulted in hospitalization" 
+      - name: seriousness_life_threatening
+        description: "Indicates if the event resulted in life-threatening"
+      - name: seriousness_disabling
+        description: "Indicates if the event resulted in disabling"
+      - name: seriousness_congenital_anomaly
+        description: "Indicates if the event resulted in congenital anomaly"
+      - name: seriousness_other
+        description: "Indicates if the event resulted in other" 
       - name: date_pulled
-        description: "Date the data was pulled"
+        description: "Date the report was pulled AKA timestamp"
     tests:
       - unique_combination:
-          combination: ['safety_report_id', 'drug_id']
+          combination: ['safety_report_id', 'drug_name']
 
   - name: dim_date
     description: "Dimension table for dates"
     tags: ["dims"]
     columns:
-      - name: date_day
+      - name: date_key
         description: "Day of the date"
         tests:
           - unique
