@@ -25,7 +25,7 @@ Data Source:
 1. Fetch adverse event data for specified statin drugs from the FDA API.
 2. Save processed data as CSV files and upload to Amazon S3 bucket for raw data storage.
 3. Load CSV files from S3 bucket into Snowflake.
-4. Create dbt project and models to transform Snowflake data.
+4. Leverage dbt models and macros for data transformation.
 5. Utilize dbt singular and generic tests to validate models. 
 
 
@@ -48,12 +48,10 @@ FDA_ADVERSE_EVENTS_PIPELINE/
 │ │ │ └── weight_conversions.sql
 │ │ ├── models/
 │ │ │ ├── marts/
-│ │ │ │ ├── age_group_analysis.sql
+│ │ │ │ ├── adverse_events_obt.sql
 │ │ │ │ ├── dim_date.sql
-│ │ │ │ ├── dim_drug.sql
-│ │ │ │ ├── dim_patient.sql
 │ │ │ │ ├── drug_summary.sql
-│ │ │ │ ├── fct_adverse_events.sql
+│ │ │ │ ├── age_group_analysis.sql
 │ │ │ │ ├── reaction_analysis.sql
 │ │ │ │ ├── seriousness_analysis.sql
 │ │ │ │ └── time_based_analysis.sql
@@ -106,17 +104,17 @@ ____________________________________
 ____________________________________
 ____________________________________
 
--- dbt transforms our data with staging, fact, dimension, and analysis models. 
+-- data is transformed with dbt models, macros, and tests: 
 
 
+<img width="940" alt="Screenshot 2024-10-22 at 6 51 16 PM" src="https://github.com/user-attachments/assets/6fd0aeb5-7773-4a13-9f6c-2b9c1f7c1082">
 
-<img width="570" alt="Screenshot 2024-09-18 at 8 18 02 PM" src="https://github.com/user-attachments/assets/b7ccc641-a979-48fb-8578-f8b0e85bf5fb">
 
 
 ____________________________________
 ____________________________________
 
--- dbt materializes our facts, dimensions, and analyses in Snowflake.
+-- dbt materializes our tables in Snowflake.
 
 
 
@@ -137,9 +135,7 @@ Orchestrated using Astronomer Cosmos managed Airflow.
 The data model consists of the following main tables:
 
 - `dim_date`: Date dimension table
-- `dim_drug`: Drug dimension table
-- `dim_patient`: Patient dimension table
-- `fct_adverse_events`: Fact table containing adverse event data
+- `adverse_events_obt`: "one big table" containing adverse event data, serving as a basis for analysis
 - Various analysis tables (e.g., `age_group_analysis`, `reaction_analysis`)
 
 
