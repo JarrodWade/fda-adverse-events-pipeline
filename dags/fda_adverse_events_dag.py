@@ -90,7 +90,7 @@ with DAG(
            FROM (
         SELECT 
             $1::VARCHAR(255) as safetyreportid,
-            $2::VARCHAR(255) as drug_name,
+            $2::VARCHAR(255) as drugname,
             $3::VARCHAR(255) as medicinalproduct,
             $4::VARCHAR(50) as drugcharacterization,
             $5::VARCHAR(1000) as drugindication,
@@ -116,7 +116,7 @@ with DAG(
             $25::VARCHAR(255) as primarysourcecountry,
             $26::VARCHAR(10) as fulfillexpeditecriteria,
             $27::VARCHAR(50) as reporttype,
-            TO_DATE($28, 'YYYY-MM-DD') as date_pulled
+            TO_DATE($28, 'YYYY-MM-DD') as datepulled
         FROM @ADV_DRUG_S3_STAGE
            )
            PATTERN = '.*adverse_events_[0-9]{8}_[0-9]{8}\\.csv'
