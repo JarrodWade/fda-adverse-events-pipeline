@@ -6,5 +6,5 @@ SELECT
     patient_weight_kg,
     patient_weight_lbs,
     ABS((patient_weight_kg * 2.20462) - patient_weight_lbs) as conversion_diff
-FROM {{ ref('dim_patient') }}
+FROM {{ ref('stg_adverse_events') }}
 WHERE conversion_diff > 0.01  -- allowing for small floating point discrepancies
