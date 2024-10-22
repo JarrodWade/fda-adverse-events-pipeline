@@ -11,10 +11,10 @@ WITH date_spine AS (
 )
 
 SELECT
-    date_day,
-    EXTRACT(YEAR FROM date_day) AS year,
-    EXTRACT(MONTH FROM date_day) AS month,
-    EXTRACT(DAY FROM date_day) AS day,
-    EXTRACT(DAYOFWEEK FROM date_day) AS day_of_week,
-    EXTRACT(QUARTER FROM date_day) AS quarter
+    date_key,
+    EXTRACT(YEAR FROM date_key) AS year,
+    EXTRACT(MONTH FROM date_key) AS month,
+    EXTRACT(DAY FROM date_key) AS day,
+    EXTRACT(DAYOFWEEK FROM date_key) AS day_of_week,
+    EXTRACT(QUARTER FROM date_key) AS quarter
 FROM date_spine
