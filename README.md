@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project implements an ELT (Extract, Load, Transform) pipeline for processing FDA adverse event data related to statin drugs. The pipeline fetches data from the FDA API, processes it, stores it in Amazon S3, and then loads it into Snowflake for long term housing and further analysis. It's designed to be run as an Airflow DAG using Astronomer Cosmos.
+This project implements an ELT (Extract, Load, Transform) pipeline for processing FDA adverse event data related to statin drugs. The pipeline fetches data from the FDA API, stores it in Amazon S3, stages within Snowflake, and transforms with dbt. It's designed to be run as an Airflow DAG using Astronomer Cosmos.
 
 Data Source: 
 ```https://open.fda.gov```
