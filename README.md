@@ -15,7 +15,7 @@ Data Source:
 
 - Apache Airflow (workflow orchestration)
 - Astronomer Cosmos (manages Apache Airflow, easy to use with dbt)
-- Python 3.12 (extraction)
+- Python 3.x (extraction)
 - Amazon S3 (raw data load)
 - Snowflake (warehousing)
 - dbt (data transformation)
@@ -56,7 +56,7 @@ FDA_ADVERSE_EVENTS_PIPELINE/
 │ │ │ │ ├── seriousness_analysis.sql
 │ │ │ │ └── time_based_analysis.sql
 │ │ │ └── staging/
-│ │ │ └── stg_adverse_events.sql
+│ │ │   └── stg_adverse_events.sql
 │ │ ├── tests/
 │ │ │ ├── ensure_weight_conversion_accurate.sql
 │ │ │ └── test_is_valid_date.sql
